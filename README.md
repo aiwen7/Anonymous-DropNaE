@@ -7,6 +7,7 @@ All datasets used in our papers are available for download:
 * yelp
 * ogbn-product 
 One can download the datasets from [Google Drive](https://drive.google.com/drive/folders/1UM7WgCLvMX1ToMXcKn0lKG7DNkSwfNZE?usp=sharing).
+
 **NOTE**: Datasets used in PGS-GNN are the same as those used in GraphSAINT. For example, one can just add `adj_train_N.npz` or `adj_train_E.npz` provided in ```PGS-GNN/data/dataset_name``` to the corresponding directory. 
 
 The directory structure should be as below:
