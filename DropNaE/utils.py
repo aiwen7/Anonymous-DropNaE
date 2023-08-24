@@ -51,13 +51,13 @@ def DropNaE(p_s, p_d, prefix, Drop_type = 'E'):
         # new_adj_full, Drop_edge_num = del_edge(adj=adj_full, del_node_list=train_drop, class_map=class_map)
         new_adj_train, Drop_edge_num = del_edge(adj=adj_full, del_node_list=train_drop, class_map=class_map)
         # sp.save_npz('./{}/adj_full_DE.npz'.format(prefix),new_adj_full)
-        sp.save_npz('./{}/adj_train_DE.npz'.format(prefix),new_adj_train)
+        sp.save_npz('./{}/adj_train_E.npz'.format(prefix),new_adj_train)
     else:
         new_adj_train = del_rows_from_csr_mtx(adj_train, train_drop)
         # new_adj_full = del_rows_from_csr_mtx(adj_full, train_drop)
         Drop_edge_num = edge_num - new_adj_train.nnz
         # sp.save_npz('./{}/adj_full_DR.npz'.format(prefix),new_adj_full)
-        sp.save_npz('./{}/adj_train_DR.npz'.format(prefix),new_adj_train)
+        sp.save_npz('./{}/adj_train_N.npz'.format(prefix),new_adj_train)
 
     print("drop edge num : {:.2f}".format(Drop_edge_num))
     print("drop edge rate : {:.4f}".format(Drop_edge_num/edge_num))
@@ -84,13 +84,13 @@ def DropNaE_pg(p_s, p_d, prefix, Drop_type = 'E'):
         # new_adj_full, Drop_edge_num = del_edge(adj=adj_full, del_node_list=train_drop, class_map=class_map)
         new_adj_train, Drop_edge_num = del_edge(adj=adj_full, del_node_list=train_drop, class_map=class_map)
         # sp.save_npz('./{}/adj_full_DE_pg.npz'.format(prefix),new_adj_full)
-        sp.save_npz('./{}/adj_train_DE_pg.npz'.format(prefix),new_adj_train)
+        sp.save_npz('./{}/adj_train_E_pg.npz'.format(prefix),new_adj_train)
     else:
         new_adj_train = del_rows_from_csr_mtx(adj_train, train_drop)
         # new_adj_full = del_rows_from_csr_mtx(adj_full, train_drop)
         Drop_edge_num = edge_num - new_adj_train.nnz
         # sp.save_npz('./{}/adj_full_DR_pg.npz'.format(prefix),new_adj_full)
-        sp.save_npz('./{}/adj_train_DR_pg.npz'.format(prefix),new_adj_train)
+        sp.save_npz('./{}/adj_train_N_pg.npz'.format(prefix),new_adj_train)
 
     print("drop edge num : {:.2f}".format(Drop_edge_num))
     print("drop edge rate : {:.4f}".format(Drop_edge_num/edge_num))
@@ -138,13 +138,13 @@ def DropNaE_clu(p_s, p_d, dataset_str, Drop_type = 'E'):
         for edge in data['links']:
             del edge['weight']
             edge['target']=int(edge['target'])
-        with open(baseline_str+'G_DE.json','w') as f:
+        with open(baseline_str+'G_E.json','w') as f:
             json.dump(data,f)
             # id_map.json
         id_map={}
         for i in range(G.number_of_nodes()):
             id_map[str(i)]=i
-        with open(baseline_str+'id_map_DE.json','w') as f:
+        with open(baseline_str+'id_map_E.json','w') as f:
             json.dump(id_map,f)
     else:
         new_adj_train = del_rows_from_csr_mtx(adj_train, train_drop)
@@ -168,13 +168,13 @@ def DropNaE_clu(p_s, p_d, dataset_str, Drop_type = 'E'):
         for edge in data['links']:
             del edge['weight']
             edge['target']=int(edge['target'])
-        with open(baseline_str+'G_DR.json','w') as f:
+        with open(baseline_str+'G_N.json','w') as f:
             json.dump(data,f)
             # id_map.json
         id_map={}
         for i in range(G.number_of_nodes()):
             id_map[str(i)]=i
-        with open(baseline_str+'id_map_DR.json','w') as f:
+        with open(baseline_str+'id_map_N.json','w') as f:
             json.dump(id_map,f)
 
     print("drop edge num : {:.2f}".format(Drop_edge_num))
@@ -236,8 +236,6 @@ def del_edge(adj, del_node_list, class_map = None):
     adj = adj.toarray()
     p = 0.7
     drop_edge_num = 0
-    with open('record.txt','a+') as f:
-        f.write(f'{p} ')
     for i in del_node_list:
         neighbor_id = list(adj[i].nonzero()[0])
         neighbor_id = sample(neighbor_id, int(len(neighbor_id)*p))

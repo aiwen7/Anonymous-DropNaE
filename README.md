@@ -7,8 +7,7 @@ All datasets used in our papers are available for download:
 * yelp
 * ogbn-product 
 One can download the datasets from [Google Drive](https://drive.google.com/drive/folders/1UM7WgCLvMX1ToMXcKn0lKG7DNkSwfNZE?usp=sharing).
-
-**NOTE**: Datasets used in PGS-GNN are the same as those used in GraphSAINT. 
+**NOTE**: Datasets used in PGS-GNN are the same as those used in GraphSAINT. For example, one can just add `adj_train_N.npz` or `adj_train_E.npz` provided in ```PGS-GNN/data/dataset_name``` to the corresponding directory. 
 
 The directory structure should be as below:
 ```
@@ -44,6 +43,19 @@ Run the version with DropNaE utilized:
 modify the run_<dataset_name>.sh by adding `--use_DropNaE N/E` mark, and then run:
 ./Models/<model_name>/run_<dataset_name>.sh
 ```
+Run your own DropNaE:
+```
+python DropNaE.py [dataset] [drop_type] [model_name]
+```
+Args description:
+- dataset : Datasets used in our paper include `reddit, yelp, amazon, ogbn-product`
+- drop_type : We provide two methods `DropNaE-N` and `DropNaE-E`, which are denoted by `N` and `E`
+- model_name : Our paper supports three models `GraphSAINT、PGS_GNN、Cluster_gcn`. One can use `saint, pg, clu` to select a model for experiments.
+Example:
+```
+python DropNaE.py reddit E saint
+```
+Then, move the processed data to the corresponding directory.
 
 ## Experimental Devices
 | Platform | Configuration |

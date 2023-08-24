@@ -60,10 +60,10 @@ def load_data(prefix, dropNaE, normalize=True):
     
     if dropNaE == 'N':
         print("use DropNaE-N!")
-        adj_train = scipy.sparse.load_npz('./{}/adj_train_DR.npz'.format(prefix)).astype(np.bool)
+        adj_train = scipy.sparse.load_npz('./{}/adj_train_N.npz'.format(prefix)).astype(np.bool)
     if dropNaE == 'E':
         print("use DropNaE-E!")
-        adj_train = scipy.sparse.load_npz('./{}/adj_train_DE.npz'.format(prefix)).astype(np.bool)
+        adj_train = scipy.sparse.load_npz('./{}/adj_train_E.npz'.format(prefix)).astype(np.bool)
     else:
         print("No DropNaE!")
         adj_train = scipy.sparse.load_npz('./{}/adj_train.npz'.format(prefix)).astype(np.bool)

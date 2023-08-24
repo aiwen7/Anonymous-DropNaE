@@ -200,12 +200,12 @@ def load_graphsage_data(dataset_path, dataset_str, DropNaE, normalize=True):
   start_time = time.time()
   if DropNaE == 'N':
       print("use DropNaE-N!")
-      graph_json = json.load(gfile.Open('{}/{}/{}-G_DR.json'.format(dataset_path, dataset_str,dataset_str)))
-      id_map = json.load(gfile.Open('{}/{}/{}-id_map_DR.json'.format(dataset_path, dataset_str,dataset_str)))
+      graph_json = json.load(gfile.Open('{}/{}/{}-G_N.json'.format(dataset_path, dataset_str,dataset_str)))
+      id_map = json.load(gfile.Open('{}/{}/{}-id_map_N.json'.format(dataset_path, dataset_str,dataset_str)))
   elif DropNaE == 'E':
       print("use DropNaE-E!")
-      graph_json = json.load(gfile.Open('{}/{}/{}-G_DE.json'.format(dataset_path, dataset_str,dataset_str)))
-      id_map = json.load(gfile.Open('{}/{}/{}-id_map_DE.json'.format(dataset_path, dataset_str,dataset_str)))
+      graph_json = json.load(gfile.Open('{}/{}/{}-G_E.json'.format(dataset_path, dataset_str,dataset_str)))
+      id_map = json.load(gfile.Open('{}/{}/{}-id_map_E.json'.format(dataset_path, dataset_str,dataset_str)))
   else:
       print("No DropNaE!")
       graph_json = json.load(gfile.Open('{}/{}/{}-G.json'.format(dataset_path, dataset_str,dataset_str)))
